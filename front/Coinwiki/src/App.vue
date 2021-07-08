@@ -1,24 +1,27 @@
 <template>
   <div id="app">
-    <div class="container">
-        <h1>Hello Spring</h1>
-        <p align="center">회원 기능</p>
-        <SignUp></SignUp>
-        <MemberList></MemberList>
-    </div> <!-- /container -->
+    <!-- 추가된 헤더 컴포넌트 사용 -->
+    <Header />
     <router-view/>
+
+    <!-- 추가된 풋터 컴포넌트 사용 -->
+    <Footer />
   </div>
 </template>
 
 <script>
-import MemberList from "./components/MemberList";
-import SignUp from "./components/SignUp";
+import Header from "./components/common/Header";
+import Footer from "./components/common/Footer";
+import HelloWorld from "./components/HelloWorld";
+import List from "./components/board/List";
 
 export default {
   name: 'App',
   components: {
-    MemberList,
-    SignUp
+    List,
+    Header,
+    Footer,
+    HelloWorld,
   }
 }
 </script>
