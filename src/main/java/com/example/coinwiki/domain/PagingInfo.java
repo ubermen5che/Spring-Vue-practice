@@ -4,12 +4,21 @@ import java.util.List;
 
 public class PagingInfo {
     private int totalCount;
+    private String boardCode;
     private int totalPage;
     private int page;
     private int startPage;
     private int endPage;
     private int ipp;
     private List<Post> pl;
+
+    public String getBoardCode() {
+        return boardCode;
+    }
+
+    public void setBoardCode(String boardCode) {
+        this.boardCode = boardCode;
+    }
 
     public int getTotalCount() {
         return totalCount;
@@ -71,6 +80,7 @@ public class PagingInfo {
     public String toString() {
         return "PagingInfo{" +
                 "totalCount=" + totalCount +
+                ", boardCode='" + boardCode + '\'' +
                 ", totalPage=" + totalPage +
                 ", page=" + page +
                 ", startPage=" + startPage +
