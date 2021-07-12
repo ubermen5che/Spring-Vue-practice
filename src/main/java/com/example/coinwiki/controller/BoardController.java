@@ -1,22 +1,18 @@
 package com.example.coinwiki.controller;
 
-import com.example.coinwiki.domain.Member;
 import com.example.coinwiki.domain.PagingInfo;;
 import com.example.coinwiki.domain.Post;
-import com.example.coinwiki.domain.RecivedData;
-import com.example.coinwiki.repository.BoardRepository;
+import com.example.coinwiki.domain.ReceivedData;
 import com.example.coinwiki.service.BoardService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
-import org.springframework.stereotype.Controller;
-import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
 
 import java.sql.Timestamp;
 import java.time.LocalDateTime;
 import java.util.HashMap;
-import java.util.List;
+import java.util.Optional;
 
 @RestController
 public class BoardController {
@@ -31,9 +27,7 @@ public class BoardController {
 
     @GetMapping("/api/board")
     @CrossOrigin(origins = "*", allowedHeaders = "*")
-    public ResponseEntity getBoardList(@RequestParam(name = "page") int pNum, RecivedData rd){
-
-        System.out.println(rd.getPage());
+    public ResponseEntity getBoardList(ReceivedData rd){
 
         PagingInfo pi = boardService.setPagingInfo(rd);
 
@@ -41,6 +35,20 @@ public class BoardController {
 
         body.put("success", true);
         body.put("pagingInfo", pi);
+
+        return new ResponseEntity(body, HttpStatus.OK);
+    }
+
+    @GetMapping("/api/board/view")
+    @CrossOrigin(origins = "*", allowedHeaders = "*")
+    public ResponseEntity getView(ReceivedData rd){
+
+        Post fPost = boardService.findOne(rd.getId(), rd.getBoardCode());
+
+        HashMap<String, Object> body = new HashMap<>();
+
+        body.put("success", true);
+        body.put("view", fPost);
 
         return new ResponseEntity(body, HttpStatus.OK);
     }
@@ -53,6 +61,7 @@ public class BoardController {
         post.setSubject(form.getSubject());
         post.setCont(form.getCont());
         post.setType(form.getType());
+        post.setBoard_code(form.getBoardCode());
         post.setRegDate(Timestamp.valueOf(LocalDateTime.now()));
         body.put("success", true);
         System.out.println(post.toString());
