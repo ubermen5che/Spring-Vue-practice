@@ -15,16 +15,13 @@ import Header from "./components/common/Header";
 import Footer from "./components/common/Footer";
 import HelloWorld from "./components/HelloWorld";
 import List from "./components/board/List";
-import Write from "./components/Write";
-
 export default {
   name: 'App',
   components: {
     List,
     Header,
     Footer,
-    HelloWorld,
-    Write
+    HelloWorld
   }
 }
 </script>
