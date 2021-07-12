@@ -25,9 +25,13 @@ public class BoardRepositoryImpl implements BoardRepository{
     }
 
     @Override
-    public Optional<Post> findByNum(Long id) {
-        Post post = em.find(Post.class, id);
-        return Optional.ofNullable(post);
+    public Post findByNum(Long id, String boardCode) {
+        String bCode = boardCode;
+
+        return (Post) em.createQuery("select p from Post p where p.board_code = :bCode AND p.id = :id")
+                .setParameter("bCode", bCode)
+                .setParameter("id", id)
+                .getSingleResult();
     }
 
     @Override
@@ -39,9 +43,12 @@ public class BoardRepositoryImpl implements BoardRepository{
     @Override
     public List<Post> paging(PagingInfo pi) {
 
-        TypedQuery<Post> query =
-                (TypedQuery<Post>) em.createQuery("SELECT p FROM Post p ORDER BY p.id DESC");
+        String boardCode = pi.getBoardCode();
 
+        TypedQuery<Post> query =
+                (TypedQuery<Post>) em.createQuery("SELECT p FROM Post p  WHERE p.board_code = :boardCode ORDER BY p.id DESC", Post.class);
+
+        query.setParameter("boardCode", boardCode);
         query.setFirstResult((pi.getPage()-1) * pi.getIpp());
         query.setMaxResults(pi.getIpp());
 
