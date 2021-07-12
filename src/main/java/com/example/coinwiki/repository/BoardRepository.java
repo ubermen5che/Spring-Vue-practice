@@ -9,7 +9,7 @@ import java.util.Optional;
 
 public interface BoardRepository {
     Post savePost(Post post);
-    Optional<Post> findByNum(Long id);
+    Post findByNum(Long id, String boardCode);
     List<Post> findAll();
     List<Post> paging(PagingInfo pi);
 }
