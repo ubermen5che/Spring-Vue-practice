@@ -41,7 +41,7 @@ export default {
   }
   ,methods:{
     fnList(){ //리스트 화면으로 이동 함수
-      this.$router.push({path:'./list',query:this.body});
+      this.$router.push({path:'./list', query:this.body});
     }
     ,fnAddProc() { //등록 프로세스
       if(!this.subject) { //제목이 없다면 값을 입력하라고 알려준다.
@@ -57,16 +57,12 @@ export default {
         ,type:this.type
       }
 
-      this.$axios.post('http://localhost:8080/api/board',this.form)
+      this.$axios.post('http://localhost:8080/api/board', this.form)
         .then((response)=>{
           if(response.data.success) {
             alert('등록되었습니다.');
-            console.log("res.data " + response.data);
-            console.log("res.status " + response.status);
             this.fnList();
           } else {
-            console.log("res.data " + response.data);
-            console.log("res.status " + response.status);
             alert("실행중 실패했습니다.\n다시 이용해 주세요");
           }
         })
