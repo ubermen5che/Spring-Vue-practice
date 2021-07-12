@@ -10,6 +10,7 @@ public class Post {
 
     @Id @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
+    private String board_code;
     private String subject;
     private String cont;
     private String type;
@@ -27,6 +28,7 @@ public class Post {
     public String toString() {
         return "Post{" +
                 "id=" + id +
+                ", board_code='" + board_code + '\'' +
                 ", subject='" + subject + '\'' +
                 ", cont='" + cont + '\'' +
                 ", type='" + type + '\'' +
@@ -104,5 +106,13 @@ public class Post {
 
     public void setCont(String cont) {
         this.cont = cont;
+    }
+
+    public String getBoard_code() {
+        return board_code;
+    }
+
+    public void setBoard_code(String board_code) {
+        this.board_code = board_code;
     }
 }
