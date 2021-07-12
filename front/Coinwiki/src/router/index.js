@@ -4,6 +4,7 @@ import SignUp from "../components/SignUp";
 import MemberList from "../components/MemberList";
 import HelloWorld from "../components/HelloWorld";
 import List from "../components/board/List";
+import Write from "../components/Write";
 
 Vue.use(Router)
 
@@ -28,6 +29,11 @@ export default new Router({
       path: '/board/list',
       name: List,
       component: List
+    },
+    {
+      path: '/board/write',
+      name: Write,
+      component: Write
     }
   ]
 })
