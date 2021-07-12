@@ -1,8 +1,10 @@
 package com.example.coinwiki.repository;
 
+import com.example.coinwiki.domain.PagingInfo;
 import com.example.coinwiki.domain.Post;
 
 import javax.persistence.EntityManager;
+import javax.persistence.TypedQuery;
 import java.util.List;
 import java.util.Optional;
 
@@ -32,5 +34,17 @@ public class BoardRepositoryImpl implements BoardRepository{
     public List<Post> findAll() {
         return em.createQuery("select p from Post p", Post.class)
                 .getResultList();
+    }
+
+    @Override
+    public List<Post> paging(PagingInfo pi) {
+
+        TypedQuery<Post> query =
+                (TypedQuery<Post>) em.createQuery("SELECT p FROM Post p ORDER BY p.id DESC");
+
+        query.setFirstResult((pi.getPage()-1) * pi.getIpp());
+        query.setMaxResults(pi.getIpp());
+
+        return query.getResultList();
     }
 }
