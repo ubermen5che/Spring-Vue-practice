@@ -21,8 +21,8 @@
           <th>날짜</th>
         </tr>
         <tr v-for="(row, idx) in list" :key="idx">
-          <td>{{no-idx}}</td>
-          <td class="txt_left"><a href="javascript:;">{{row.subject}}</a></td>
+          <td>{{row.id}}</td>
+          <td class="txt_left"><a href="javascript:;" @click="fnView(`${row.id}`)">{{row.subject}}</a></td>
           <td>{{row.type}}</td>
           <td>{{row.regDate.substring(0,10)}}</td>
         </tr>
@@ -76,12 +76,11 @@ export default {
   }
   ,mounted() { //페이지 시작하면은 자동 함수 실행
     this.fnGetList();
-    console.log(this.list)
   }
   , methods:{
     fnGetList() { //데이터 가져오기 함수
       this.body = { // 데이터 전송
-        boardCode:this.boardCode
+        boardCode:"news"
         ,keyword:this.keyword
         ,page:this.page
       }
@@ -121,6 +120,10 @@ export default {
         this.fnGetList();
       }
     }
+    , fnView(id){
+      this.body.id = id;
+      this.$router.push({path: './view', query: this.body});
+    }
   }
 }
 </script>
@@ -137,5 +140,5 @@ export default {
 .pagination{margin:20px 0 0 0; text-align:center;}
 .first, .prev, .next, .last{border:1px solid #666; margin:0 5px;}
 .pagination span{display:inline-block; padding:0 5px; color:#333;}
-.pagination a{text-decoration:none; display:inline-blcok; padding:0 5px; color:#666;}
+.pagination a{text-decoration:none; display:inline-block; padding:0 5px; color:#666;}
 </style>
