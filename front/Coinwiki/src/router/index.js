@@ -5,6 +5,7 @@ import MemberList from "../components/MemberList";
 import HelloWorld from "../components/HelloWorld";
 import List from "../components/board/List";
 import Write from "../components/Write";
+import View from "../components/board/View"
 
 Vue.use(Router)
 
@@ -34,6 +35,11 @@ export default new Router({
       path: '/board/write',
       name: Write,
       component: Write
+    },
+    {
+      path: '/board/view',
+      name: View,
+      component: View
     }
   ]
 })
