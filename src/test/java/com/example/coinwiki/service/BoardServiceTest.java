@@ -22,7 +22,7 @@ import static org.junit.jupiter.api.Assertions.assertThrows;
 
 @SpringBootTest
 @Transactional
-@Commit
+
 public class BoardServiceTest {
 
     @Autowired
@@ -38,12 +38,13 @@ public class BoardServiceTest {
         post.setCont("무야호");
         post.setRegDate(Timestamp.valueOf(LocalDateTime.now()));
         post.setType("admin");
+        post.setBoard_code("news");
 
         //when
         Long saveId = boardService.savePost(post);
 
         //then
-        Post findPost = boardService.findOne(saveId).get();
+        Post findPost = boardService.findOne(saveId, "news");
         Assertions.assertThat(post.getId()).isEqualTo(findPost.getId());
     }
 
@@ -77,7 +78,7 @@ public class BoardServiceTest {
         List<Post> pList = new ArrayList<>();
 
         //given
-        for (int i = 10; i < 20; i++) {
+        for (int i = 0; i < 10; i++) {
             String sub = "subject" + i;
             String cont = "content" + i;
 
@@ -85,6 +86,7 @@ public class BoardServiceTest {
             pList.get(i).setSubject(sub);
             pList.get(i).setCont(cont);
             pList.get(i).setRegDate(Timestamp.valueOf(LocalDateTime.now()));
+            pList.get(i).setBoard_code("news");
             boardService.savePost(pList.get(i));
         }
 
@@ -93,12 +95,11 @@ public class BoardServiceTest {
         List<Post> ap2 = new ArrayList<>();
         ap2 = boardService.findAll();
 
-        List<Post> pagingList = new ArrayList<>();
+        List<Post> pList2;
 
-        PagingInfo pagingInfo = new PagingInfo();
-        pagingList = boardService.paging();
+        pList2 = boardService.paging();
         //then
 
-        Assertions.assertThat(ap2.size()).isEqualTo(pagingList.size());
+        Assertions.assertThat(ap2.size()).isEqualTo(pList2.size());
     }
 }
